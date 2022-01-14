@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
@@ -19,12 +19,13 @@ public class DepartmentController {
     @Autowired
     private DepartmentService deptService;
 
-    @PostMapping("/")
+
+    @PostMapping(value = "/add")
     public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department dept){
-        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.OK);
+        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.CREATED);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public ResponseEntity<Object> updateDepartment(@Valid @RequestBody Department dept){
         return new ResponseEntity<>(this.deptService.updateDepartment(dept), HttpStatus.OK);
     }
