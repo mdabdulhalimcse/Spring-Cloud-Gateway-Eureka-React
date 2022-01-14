@@ -1,0 +1,26 @@
+server:
+  port: 8182
+spring:
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/ibcs-primax-test-db?createDatabaseIfNotExist=true
+    username: root
+    password: mysql
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  application:
+    name: EMPLOYEE-SERVICE
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
