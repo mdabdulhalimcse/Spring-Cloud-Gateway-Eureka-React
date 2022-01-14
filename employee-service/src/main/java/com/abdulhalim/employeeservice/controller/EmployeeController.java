@@ -2,18 +2,12 @@ package com.abdulhalim.employeeservice.controller;
 
 import com.abdulhalim.employeeservice.entity.Employee;
 import com.abdulhalim.employeeservice.service.EmployeeService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*")

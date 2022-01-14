@@ -34,4 +34,6 @@ public class Employee {
     @NotEmpty(message = "Mobile number can not be empty!")
     @Size(max = 35, message = "Maximum 14 digits")
     private String mobile;
+
+    private Long departmentId;
 }

@@ -16,17 +16,26 @@ public class DepartmentService {
 
     private final DepartmentRepository deptRepo;
 
-    //    @Override
+
     public Department saveDepartment(Department dept) {
         return deptRepo.save(dept);
     }
 
-    //    @Override
-    public Department updateDepartment(Department dept) {
-        return deptRepo.save(dept);
+
+    public Object updateDepartment(Department dept) {
+        Optional<Department> optionalDepartment = deptRepo.findById(dept.getId());
+        HashMap<String,String> message = new HashMap<>();
+
+        if (optionalDepartment.isPresent()){
+            return deptRepo.save(dept);
+        }
+        message.put("message"," Department id "+dept.getId()+" is not found.");
+        System.out.println("message: "+dept.getId()+" Department not found.");
+        return message;
+
     }
 
-    //    @Override
+
     public Object deleteDepartmentById(Long id) {
         HashMap<String,String> deleteMsg = new HashMap<>();
         try {
@@ -42,7 +51,6 @@ public class DepartmentService {
         return deleteMsg;
     }
 
-    //    @Override
     public Object getDepartmentById(Long id) {
         HashMap<String,String> deptMsg = new HashMap<>();
         Optional<Department> dept = deptRepo.findById(id);
@@ -53,7 +61,6 @@ public class DepartmentService {
         return dept;
     }
 
-    //    @Override
     public List<Department> getAllDepartment() {
         List<Department> deptList = deptRepo.findAll();
         return deptList;

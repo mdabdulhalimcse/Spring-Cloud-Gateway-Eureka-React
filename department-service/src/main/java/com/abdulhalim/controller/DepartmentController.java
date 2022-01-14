@@ -3,7 +3,6 @@ package com.abdulhalim.controller;
 
 import com.abdulhalim.entity.Department;
 import com.abdulhalim.service.DepartmentService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +21,12 @@ public class DepartmentController {
 
     @PostMapping("/")
     public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department dept){
-        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.OK);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Department> updateDepartment(@Valid @RequestBody Department dept){
-        return new ResponseEntity<>(this.deptService.updateDepartment(dept), HttpStatus.NO_CONTENT);
+    public ResponseEntity<Object> updateDepartment(@Valid @RequestBody Department dept){
+        return new ResponseEntity<>(this.deptService.updateDepartment(dept), HttpStatus.OK);
     }
 
     @GetMapping(value = "/")
