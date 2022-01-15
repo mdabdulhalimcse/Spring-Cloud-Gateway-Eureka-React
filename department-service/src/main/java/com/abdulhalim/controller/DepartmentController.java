@@ -19,30 +19,24 @@ public class DepartmentController {
     @Autowired
     private DepartmentService deptService;
 
-
-    @PostMapping(value = "/add")
-    public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department dept){
-        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<Object> updateDepartment(@Valid @RequestBody Department dept){
-        return new ResponseEntity<>(this.deptService.updateDepartment(dept), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Department>> getAllDepartment(){
         return new ResponseEntity<>(this.deptService.getAllDepartment(),HttpStatus.OK);
     }
 
-    @GetMapping(value = "/departmentBy/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<List<Department>> getEmployeesById(@PathVariable Long id){
         return new ResponseEntity(deptService.getDepartmentById(id),HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/")
-    public ResponseEntity<Object> deleteDepartment(@RequestBody Department department){
-        return new ResponseEntity<>(this.deptService.deleteDepartmentById(department.getId()),HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department dept){
+        return new ResponseEntity<>(this.deptService.saveDepartment(dept), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> updateDepartment(@Valid @RequestBody Department dept){
+        return new ResponseEntity<>(this.deptService.updateDepartment(dept), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

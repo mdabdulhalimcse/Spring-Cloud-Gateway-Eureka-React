@@ -16,11 +16,9 @@ public class DepartmentService {
 
     private final DepartmentRepository deptRepo;
 
-
     public Department saveDepartment(Department dept) {
         return deptRepo.save(dept);
     }
-
 
     public Object updateDepartment(Department dept) {
         Optional<Department> optionalDepartment = deptRepo.findById(dept.getId());
@@ -30,33 +28,30 @@ public class DepartmentService {
             return deptRepo.save(dept);
         }
         message.put("message"," Department id "+dept.getId()+" is not found.");
-        System.out.println("message: "+dept.getId()+" Department not found.");
         return message;
-
     }
 
-
     public Object deleteDepartmentById(Long id) {
-        HashMap<String,String> deleteMsg = new HashMap<>();
+        HashMap<String,String> message = new HashMap<>();
         try {
             deptRepo.delete(deptRepo.findById(id).get());
         }catch (NoSuchElementException e){
-            deleteMsg.put("id: "+id,"Not Found");
-            return deleteMsg;
+            message.put("message","Department id "+id +" was not found!");
+            return message;
         }catch (Exception e){
-            deleteMsg.put("id: "+id,"Sorry! can not delete parent row.");
-            return deleteMsg;
+            message.put("message","Sorry! can not delete parent row.");
+            return message;
         }
-        deleteMsg.put("id: "+id,"Department has been successfully deleted.");
-        return deleteMsg;
+        message.put("message","Department id "+id +" has been successfully deleted.");
+        return message;
     }
 
     public Object getDepartmentById(Long id) {
-        HashMap<String,String> deptMsg = new HashMap<>();
+        HashMap<String,String> message = new HashMap<>();
         Optional<Department> dept = deptRepo.findById(id);
         if (!dept.isPresent()){
-            deptMsg.put("id: "+id,"Sorry! Not Found!");
-            return deptMsg;
+            message.put("message","Sorry! Department id "+ id +" Not Found!");
+            return message;
         }
         return dept;
     }

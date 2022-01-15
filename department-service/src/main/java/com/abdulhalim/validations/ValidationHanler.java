@@ -21,7 +21,8 @@ public class ValidationHanler extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getAllErrors().forEach((error) ->{
             String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
-            errors.put(fieldName,message);
+            String msg = "message";
+            errors.put(msg,message);
         });
         return new ResponseEntity<Object>(errors,HttpStatus.BAD_REQUEST);
     }
