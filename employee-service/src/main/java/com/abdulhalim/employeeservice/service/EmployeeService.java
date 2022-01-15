@@ -29,19 +29,32 @@ public class EmployeeService {
 
     public Object updateEmployee(Employee employee) {
         Employee employee1 = employeeRepo.findEmployeeByCode(employee.getCode());
+        Optional<Employee> employee2 = employeeRepo.findById(employee.getId());
+        HashMap<String,String> message = new HashMap<>();
 
-        if (employee1 == null){
-            return employeeRepo.save(employee);
+        if (employee2.isPresent()){
+            if (employee1 == null){
+                employeeRepo.save(employee);
+                message.put("message","Employee has been successfully saved.");
+                return message;
+            }
+
+            String codeExistId = employee1.getId().toString();
+            System.out.println("codeExistId"+codeExistId);
+            String codeId = employee.getId().toString();
+            System.out.println("codeId: "+ codeId);
+            if (codeExistId.equals(codeId)){
+              employeeRepo.save(employee);
+                message.put("message","Employee has been successfully saved.");
+                return message;
+            }
+
+            message.put("message","Code already exists of the Employee.Please try again...");
+            return message;
         }
 
-        String codeExistId = employee1.getId().toString();
-        String codeId = employee.getId().toString();
-        if (codeExistId.equals(codeId)){
-            return employeeRepo.save(employee);
-        }
-        HashMap<String,String> dublicateMsg = new HashMap<>();
-        dublicateMsg.put("code","Already exists of the code.Please try again...");
-        return dublicateMsg;
+        message.put("message","Employee is not Found.");
+        return message;
     }
 
 

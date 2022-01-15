@@ -1,26 +1,27 @@
-package com.abdulhalim.employeeservice.entity;
+package com.abdulhalim.employeeservice.dto.request;
 
 import com.abdulhalim.employeeservice.enums.Gender;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-@Entity
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EmployeeDetailsDto {
+
     private Long id;
 
     @Size(max = 4, min = 4, message = "Code must be 4 character")
     @Column(unique = true, nullable = false)
     private String code;
 
-    @NotEmpty(message = "Name can not be empty!")
-    @Size(max = 35, message = "Maximum 35 Character")
     private String name;
 
 
@@ -30,9 +31,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NotEmpty(message = "Mobile number can not be empty!")
-    @Size(max = 35, message = "Maximum 14 digits")
     private String mobile;
 
-    private Long departmentId;
+    private DepartmentDto department;
 }
