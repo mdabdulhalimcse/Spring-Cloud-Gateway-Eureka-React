@@ -3,14 +3,39 @@ spring:
     name: GATEWAY-SERVICE
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
       routes:
         - id: order-service
           uri: lb://DEPARTMENT-SERVICE
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           predicates:
             - Path=/department/**
         - id: payment-service
           uri: lb://EMPLOYEE-SERVICE
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           predicates:
             - Path=/employee/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
 server:
   port: 8180
