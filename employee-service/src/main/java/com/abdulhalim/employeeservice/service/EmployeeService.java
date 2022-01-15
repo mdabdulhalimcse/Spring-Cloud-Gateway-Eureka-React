@@ -2,11 +2,13 @@ package com.abdulhalim.employeeservice.service;
 
 import com.abdulhalim.employeeservice.entity.Employee;
 import com.abdulhalim.employeeservice.repository.EmployeeRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -21,13 +23,12 @@ public class EmployeeService {
             return employeeRepo.save(employee);
         }
         HashMap<String,String> dublicateMsg = new HashMap<>();
-        dublicateMsg.put("code","Already exists of the code.Please try again...");
+        dublicateMsg.put("message","Code already exists of the Employee.Please try again...");
         return dublicateMsg;
-
     }
 
-
     public Object updateEmployee(Employee employee) {
+
         Employee employee1 = employeeRepo.findEmployeeByCode(employee.getCode());
         Optional<Employee> employee2 = employeeRepo.findById(employee.getId());
         HashMap<String,String> message = new HashMap<>();
@@ -40,23 +41,19 @@ public class EmployeeService {
             }
 
             String codeExistId = employee1.getId().toString();
-            System.out.println("codeExistId"+codeExistId);
             String codeId = employee.getId().toString();
-            System.out.println("codeId: "+ codeId);
+
             if (codeExistId.equals(codeId)){
               employeeRepo.save(employee);
                 message.put("message","Employee has been successfully saved.");
                 return message;
             }
-
             message.put("message","Code already exists of the Employee.Please try again...");
             return message;
         }
-
         message.put("message","Employee is not Found.");
         return message;
     }
-
 
     public Object deleteEmployeeById(Long id) {
         HashMap<String,String> deleteMsg = new HashMap<>();
@@ -71,7 +68,6 @@ public class EmployeeService {
         return deleteMsg;
     }
 
-
     public Object getEmployeeById(Long id) {
         HashMap<String,String> employeeMsg = new HashMap<>();
         Optional<Employee> optionalEmployee = employeeRepo.findById(id);
@@ -82,26 +78,8 @@ public class EmployeeService {
         return optionalEmployee;
     }
 
-
     public List<Employee> getAllEmployee() {
         List<Employee> employeeList = employeeRepo.findAll();
         return employeeList;
     }
-
-//    @Override
-//    public List<EmployeeDto> findAllEmployee() {
-//        List<EmployeeDto> dtos = new ArrayList<>();
-//        this.employeeRepo.findAll().parallelStream().forEach((e)->{
-//            dtos.add(convertEntityToDto(e));
-//        });
-//        return dtos;
-//    }
-//
-//    @Override
-//    public EmployeeDto convertEntityToDto(Employee employee) {
-//        EmployeeDto dto = new EmployeeDto();
-//        BeanUtils.copyProperties(employee,dto);
-//        dto.setDepartmentName(employee.getDepartment().getDepartmentName());
-//        return dto;
-//    }
 }
