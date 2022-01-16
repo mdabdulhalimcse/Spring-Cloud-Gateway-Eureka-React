@@ -15,16 +15,24 @@ spring:
               - DELETE
               - OPTIONS
       routes:
-        - id: order-service
+        - id: department-service
           uri: lb://DEPARTMENT-SERVICE
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: department-service
+                fallbackuri: forward:/departmentFallback
           predicates:
             - Path=/department/**
-        - id: payment-service
+        - id: employee-service
           uri: lb://EMPLOYEE-SERVICE
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: employee-service
+                fallbackuri: forward:/employeeFallback
           predicates:
             - Path=/employee/**
 
@@ -38,4 +46,18 @@ eureka:
     hostname: localhost
 
 server:
-  port: 8180
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

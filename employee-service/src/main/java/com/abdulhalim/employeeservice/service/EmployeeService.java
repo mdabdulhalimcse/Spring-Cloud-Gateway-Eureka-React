@@ -1,19 +1,22 @@
 package com.abdulhalim.employeeservice.service;
 
+import com.abdulhalim.employeeservice.dto.request.Department;
+import com.abdulhalim.employeeservice.dto.request.EmployeeDetailsDto;
+import com.abdulhalim.employeeservice.dto.response.EmployeeResponseDto;
 import com.abdulhalim.employeeservice.entity.Employee;
 import com.abdulhalim.employeeservice.repository.EmployeeRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepo;
+    @Autowired
+    private ApiCallDepartment apiCallDepartment;
 
 
     public Object saveEmployee(Employee employee) {
@@ -68,18 +71,38 @@ public class EmployeeService {
         return deleteMsg;
     }
 
-    public Object getEmployeeById(Long id) {
-        HashMap<String,String> employeeMsg = new HashMap<>();
-        Optional<Employee> optionalEmployee = employeeRepo.findById(id);
-        if (!optionalEmployee.isPresent()){
-            employeeMsg.put("id: "+id,"Not Found");
-            return employeeMsg;
-        }
-        return optionalEmployee;
+    public List<EmployeeResponseDto> getAllEmployee() {
+        List<EmployeeResponseDto> employeeResponseDtoList = new ArrayList<>();
+        this.employeeRepo.findAll().parallelStream().forEach((employee -> {
+            employeeResponseDtoList.add(convertEmployeeToDto(employee));
+        }));
+        return employeeResponseDtoList;
     }
 
-    public List<Employee> getAllEmployee() {
-        List<Employee> employeeList = employeeRepo.findAll();
-        return employeeList;
+    public Object getEmployeeDetailsById(Long id){
+        HashMap<String,String> employeeMsg = new HashMap<>();
+        Employee employee = employeeRepo.findById(id).orElse(null);
+
+        try {
+            if (employee.equals(null)){}
+            Department department = apiCallDepartment.getStudentDetails(employee.getDepartmentId());
+            EmployeeDetailsDto employeeDetailsDto = new EmployeeDetailsDto();
+            BeanUtils.copyProperties(employee,employeeDetailsDto);
+            employeeDetailsDto.setDepartment(department);
+
+            return employeeDetailsDto;
+        }catch (NullPointerException e) {
+            employeeMsg.put("message","Not Found of the Employee");
+            return employeeMsg;
+        }catch (IllegalStateException e){
+            employeeMsg.put("message","Department Service is taking too long to respond or is down. Please try again later");
+            return employeeMsg;
+        }
+    }
+
+    private EmployeeResponseDto convertEmployeeToDto(Employee employee){
+        EmployeeResponseDto dto = new EmployeeResponseDto();
+        BeanUtils.copyProperties(employee,dto);
+        return dto;
     }
 }

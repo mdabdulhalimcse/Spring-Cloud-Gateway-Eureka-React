@@ -1,5 +1,7 @@
 package com.abdulhalim.employeeservice.controller;
 
+import com.abdulhalim.employeeservice.dto.request.EmployeeDetailsDto;
+import com.abdulhalim.employeeservice.dto.response.EmployeeResponseDto;
 import com.abdulhalim.employeeservice.entity.Employee;
 import com.abdulhalim.employeeservice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,13 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getAllEmployees(){
+    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
         return new ResponseEntity<>(this.employeeService.getAllEmployee(),HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getAllEmployees(@PathVariable Long id){
-        return new ResponseEntity(this.employeeService.getEmployeeById(id),HttpStatus.OK);
+    public ResponseEntity<EmployeeDetailsDto> getAllEmployeeDetails(@PathVariable Long id){
+        return new ResponseEntity(this.employeeService.getEmployeeDetailsById(id),HttpStatus.OK);
     }
 
     @PostMapping

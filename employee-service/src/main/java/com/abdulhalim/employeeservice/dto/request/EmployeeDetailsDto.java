@@ -33,5 +33,5 @@ public class EmployeeDetailsDto {
 
     private String mobile;
 
-    private DepartmentDto department;
+    private Department department;
 }
