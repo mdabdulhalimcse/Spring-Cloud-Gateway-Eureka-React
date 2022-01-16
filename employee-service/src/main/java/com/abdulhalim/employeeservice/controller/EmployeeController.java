@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin()
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -21,8 +21,12 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployees(){
+    public ResponseEntity<List<Employee>> getAllEmployees(){
         return new ResponseEntity<>(this.employeeService.getAllEmployee(),HttpStatus.OK);
+    }
+    @GetMapping("/employee-dto")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllEmployeesDto(){
+        return new ResponseEntity<>(this.employeeService.getAllEmployeeDto(),HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

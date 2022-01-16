@@ -71,12 +71,16 @@ public class EmployeeService {
         return deleteMsg;
     }
 
-    public List<EmployeeResponseDto> getAllEmployee() {
+    public List<EmployeeResponseDto> getAllEmployeeDto() {
         List<EmployeeResponseDto> employeeResponseDtoList = new ArrayList<>();
         this.employeeRepo.findAll().parallelStream().forEach((employee -> {
             employeeResponseDtoList.add(convertEmployeeToDto(employee));
         }));
         return employeeResponseDtoList;
+    }
+
+    public List<Employee> getAllEmployee() {
+        return employeeRepo.findAll();
     }
 
     public Object getEmployeeDetailsById(Long id){
