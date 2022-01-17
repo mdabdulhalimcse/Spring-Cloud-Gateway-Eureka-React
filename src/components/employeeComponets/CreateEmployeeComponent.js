@@ -35,7 +35,6 @@ export default function CreateEmployeeComponent() {
 
     EmployeeService.createEmployee(employee)
       .then((data) => {
-        console.log(data);
         history(`/employee`);
       })
       .catch((error) => {
@@ -106,7 +105,7 @@ export default function CreateEmployeeComponent() {
                 value={mobile}
               />
             </div>
-{console.log(startDate)}
+
             <div className="form-group">
               <label> Date of Birth: </label>
               <DatePicker placeholderText="select your date of birth"
@@ -132,11 +131,11 @@ export default function CreateEmployeeComponent() {
               ))}
             </select>
             </div>
+
             <br/>
             <button className="btn btn-success" type="submit" value="Submit">
               Save
             </button>
-          
             <button className="btn btn-danger" onClick={cancelHanler} >Cancel</button>
           </form>
         </div>

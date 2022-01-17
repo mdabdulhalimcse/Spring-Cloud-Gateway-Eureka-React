@@ -10,10 +10,10 @@ export default function UpdateDepartmentComponent(){
     const history = useNavigate();
     const params = useParams();
     const idDepartment = params.id;
+
     useEffect(() => {
         DepartmentService.getDepartmentById(idDepartment)
         .then(response => {
-            console.log(response.data);
             setDepartmentName(response.data.departmentName);
             setActiveStatus(response.data.active);
         });
@@ -40,8 +40,6 @@ export default function UpdateDepartmentComponent(){
         history(`/department`);
     }
 
-
-
     return(
         <div>
             <div className = "container">
@@ -60,10 +58,9 @@ export default function UpdateDepartmentComponent(){
 
                                 <button className="btn btn-success" type="submit" value="Submit" >Save</button>
                                 <button className="btn btn-danger" onClick={cancelHandler} >Cancel</button>
-                            </form>
+               </form>
                             </div>
-                            </div>
-                          
+                            </div>   
         </div>
     )
 }

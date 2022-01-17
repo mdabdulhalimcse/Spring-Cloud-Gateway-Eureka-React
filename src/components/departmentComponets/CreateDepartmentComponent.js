@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DepartmentService from "../../services/DepartmentService";
 
-export default function CreateDepartmentComponent(){
+function CreateDepartmentComponent(){
 
     const [departmentName, setDepartmentName] = useState('');
     const [activeStatus, setActiveStatus] = useState(true);
@@ -26,8 +26,6 @@ export default function CreateDepartmentComponent(){
         history(`/department`);
     }
 
-
-
     return(
         <div>
             <div className = "container">
@@ -46,10 +44,12 @@ export default function CreateDepartmentComponent(){
 
                                 <button className="btn btn-success" type="submit" value="Submit" >Save</button>
                                 <button className="btn btn-danger" onClick={cancelHandler} >Cancel</button>
-                            </form>
+                  </form>
                             </div>
                             </div>
                           
         </div>
     )
 }
+
+export default CreateDepartmentComponent;

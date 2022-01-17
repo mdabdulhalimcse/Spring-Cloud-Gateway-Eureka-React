@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { default as DepartmentService } from '../../services/DepartmentService';
+import DepartmentService from '../../services/DepartmentService';
 
 function ViewDepartmentComponent (){
 
     const [department, setDepartment] = useState([]);
     const params = useParams()
     const id = params.id;
-
-
 
     useEffect(() => {
         DepartmentService.getDepartmentById(id).then( res => {
@@ -28,7 +26,7 @@ function ViewDepartmentComponent (){
                            
                         </div>
                         <div className = "row">
-                            <label> Active Status :  {department.active ? 'Active' : 'Deactive'} </label>
+                            <label> Active Status:  {department.active ? 'Active' : 'Deactive'} </label>
                             <div> { }</div>
                         </div>
                         

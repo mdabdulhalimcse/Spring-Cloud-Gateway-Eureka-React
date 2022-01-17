@@ -70,7 +70,7 @@ if(employee.length <= 0  ){
 
                                         <button style={{marginLeft: "10px"}} onClick={ () => deleteEmployee(emp.id)} className="btn btn-danger">Delete </button>
 
-                                        <button style={{marginLeft: "10px"}} onClick={ () => viewEmployee(emp.id)} className="btn btn-info">View </button>
+                                        <button style={{marginLeft: "10px"}} onClick={ () => viewEmployee(emp.id)} className="btn btn-success">View </button>
 
                                     </td>
                                </tr>
@@ -78,9 +78,7 @@ if(employee.length <= 0  ){
                        }
                    </tbody>
                </table>
-
         </div>
-
    </div>
     );}
 }

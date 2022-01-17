@@ -14,8 +14,8 @@ export default function UpdateEmployeeComponent() {
   const [dob, setDateBirth] = useState(new Date());
   const [departmentId,setDepartmentId] = useState('');
   const [ department,setDepartment] = useState([]);
-  const history = useNavigate();
 
+  const history = useNavigate();
   const params = useParams()
   const employeeId = params.id;
 
@@ -27,7 +27,6 @@ export default function UpdateEmployeeComponent() {
 useEffect(() => {
     EmployeeService.getEmployeeById(employeeId)
     .then(response => {
-        console.log(response.data);
         setName(response.data.name);
         setCode(response.data.code);
         setGender(response.data.gender);
@@ -39,9 +38,8 @@ useEffect(() => {
 
   const submitHandler = (e) => {
     e.preventDefault();   
-    var newDate= moment(dob).format('YYYY-MM-DD')
-    console.log(newDate);
-  
+    var newDate= moment(dob).format('YYYY-MM-DD');
+
     let employee = {
       id:employeeId,
       name: name,
@@ -80,7 +78,6 @@ console.log(employee)
   const dateHandler = (e) =>{
     var newDate= moment(e).format('YYYY-MM-DD')
     setDateBirth(newDate);
-
   }
 
   const cancelHanler= () =>{

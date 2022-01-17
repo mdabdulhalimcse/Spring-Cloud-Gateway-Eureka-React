@@ -8,8 +8,6 @@ function ViewEmployeeComponent (){
     const params = useParams()
     const id = params.id;
 
-
-
     useEffect(() => {
         EmployeeService.getEmployeeById(id).then( res => {
             setEmployee(res.data);
@@ -47,4 +45,4 @@ function ViewEmployeeComponent (){
         )
     }
 
-export default ViewEmployeeComponent;
+export default React.memo(ViewEmployeeComponent);

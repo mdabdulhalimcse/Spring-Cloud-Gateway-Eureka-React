@@ -25,4 +25,4 @@ class DepartmentService {
     }
 }
 
-export default new DepartmentService()
+export default new DepartmentService();

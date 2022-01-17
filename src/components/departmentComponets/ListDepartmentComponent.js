@@ -68,16 +68,13 @@ export default function ListDepartmentComponent(){
                                         <button style={{marginLeft: "10px"}} onClick={ () => deleteDepartment(dept.id)} className="btn btn-danger">Delete </button>
 
                                         <button style={{marginLeft: "10px"}} onClick={ () => viewDepartment(dept.id)} className="btn btn-info">View </button>
-
                                     </td>
                                </tr>
                            )
                        }
                    </tbody>
                </table>
-
         </div>
-
    </div>
     )
 }
