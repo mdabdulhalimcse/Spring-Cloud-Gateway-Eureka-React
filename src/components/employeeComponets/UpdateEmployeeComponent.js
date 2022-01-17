@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -37,17 +38,20 @@ useEffect(() => {
 },[employeeId]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault();   
+    var newDate= moment(dob).format('YYYY-MM-DD')
+    console.log(newDate);
+  
     let employee = {
       id:employeeId,
       name: name,
       code: code,
-      dob: dob,
+      dob: newDate,
       gender: gender,
       mobile: mobile,
       departmentId:departmentId,
     };
-
+console.log(employee)
     EmployeeService.updateEmployee(employee)
       .then((data) => {
         console.log(data);
@@ -72,6 +76,12 @@ useEffect(() => {
       value: "OTHERS",
     },
   ];
+
+  const dateHandler = (e) =>{
+    var newDate= moment(e).format('YYYY-MM-DD')
+    setDateBirth(newDate);
+
+  }
 
   const cancelHanler= () =>{
       history(`/employee/`)
@@ -126,7 +136,7 @@ useEffect(() => {
               <label> Date of Birth: </label>
               <DatePicker
                 value={dob}
-                onChange={(date) => setDateBirth(date)}
+                onChange={dateHandler}
               />
             </div>
            
@@ -149,7 +159,7 @@ useEffect(() => {
             </div>
 
             <button className="btn btn-success" type="submit" value="Submit">
-              Save
+              Update
             </button>
             <button className="btn btn-danger" onClick={cancelHanler} >Cancel</button>
           </form>
