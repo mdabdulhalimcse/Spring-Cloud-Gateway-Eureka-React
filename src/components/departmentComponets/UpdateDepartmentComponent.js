@@ -5,7 +5,7 @@ import DepartmentService from "../../services/DepartmentService";
 export default function UpdateDepartmentComponent(){
 
     const [departmentName, setDepartmentName] = useState('');
-    const [activeStatus, setActiveStatus] = useState(false);
+    const [activeStatus, setActiveStatus] = useState(true);
 
     const history = useNavigate();
     const params = useParams();
@@ -16,9 +16,8 @@ export default function UpdateDepartmentComponent(){
             console.log(response.data);
             setDepartmentName(response.data.departmentName);
             setActiveStatus(response.data.active);
-        
         });
-    },[idDepartment])
+    },[idDepartment]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -56,7 +55,7 @@ export default function UpdateDepartmentComponent(){
 
                                 <div className = "form-group">
                                     <label> Active Status :  </label>
-                                    <input type="checkbox" name="checkbox" onChange={(e) => setActiveStatus(e.target.checked) } Checked={activeStatus}  />
+                                    <input type="checkbox" name="checkbox" onChange={(e) => setActiveStatus(e.target.checked) } checked={activeStatus}  />
                                 </div>
 
                                 <button className="btn btn-success" type="submit" value="Submit" >Save</button>
