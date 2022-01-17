@@ -84,6 +84,10 @@ console.log(employee)
       history(`/employee/`)
   }
 
+  const departmentChangeHandle = (e) =>{
+    setDepartmentId(e.target.value);
+  }
+
   return (
     <div>
       <div className="container">
@@ -148,7 +152,7 @@ console.log(employee)
 
             <div>
             <label> Department: </label>
-            <select value={departmentId} onChange={(e) => setDepartmentId(e.target.value)}>
+            <select value={departmentId} onChange={departmentChangeHandle}>
               {department.map((dept,index) => (
                 <option value={dept.id} key={index} >{dept.departmentName}</option>
               ))}
