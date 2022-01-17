@@ -21,7 +21,7 @@ export default function UpdateEmployeeComponent() {
   useEffect(() => {
     DepartmentService.getDepartment()
     .then(response => setDepartment(response.data));
-},[]);
+},[department]);
 
 useEffect(() => {
     EmployeeService.getEmployeeById(employeeId)
@@ -33,10 +33,8 @@ useEffect(() => {
         setDateBirth(response.data.dob);
         setMobile(response.data.mobile);
         setDepartmentId(response.data.department.id);
-    
     });
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[])
+},[employeeId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -127,7 +125,6 @@ useEffect(() => {
             <div className="form-group">
               <label> Date of Birth: </label>
               <DatePicker
-                // selected={dob}
                 value={dob}
                 onChange={(date) => setDateBirth(date)}
               />

@@ -106,10 +106,10 @@ export default function CreateEmployeeComponent() {
                 value={mobile}
               />
             </div>
-
+{console.log(startDate)}
             <div className="form-group">
               <label> Date of Birth: </label>
-              <DatePicker
+              <DatePicker placeholderText="select your date of birth"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
               />
