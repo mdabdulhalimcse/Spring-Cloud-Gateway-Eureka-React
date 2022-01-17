@@ -56,7 +56,7 @@ export default function UpdateDepartmentComponent(){
 
                                 <div className = "form-group">
                                     <label> Active Status :  </label>
-                                    <input type="checkbox" name="checkbox" onChange={(e) => setActiveStatus(e.target.checked) } DefaultChecked={activeStatus}  />
+                                    <input type="checkbox" name="checkbox" onChange={(e) => setActiveStatus(e.target.checked) } Checked={activeStatus}  />
                                 </div>
 
                                 <button className="btn btn-success" type="submit" value="Submit" >Save</button>

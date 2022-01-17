@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
 
-export default function ListEmployeeComponent(){
+ function ListEmployeeComponent(){
     const [employee, setEmployee] = useState([]);
 
     const history = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:8080/employee/')
-        .then(response => setEmployee(response.data));
-    },[]);
+        EmployeeService.getEmployee()
+        .then(response => {
+            setEmployee((prevState) => response.data)
+        });
+    },[employee]);
     
     const createEmployee = () => {
         history(`/employee/create/`)
@@ -29,7 +30,9 @@ export default function ListEmployeeComponent(){
         history(`/employee/view/${id}`);
     }
 
-
+if(employee.length <= 0  ){
+    return <div>Loading...</div>
+}else{
     return(
         
         <div className="container">
@@ -79,5 +82,7 @@ export default function ListEmployeeComponent(){
         </div>
 
    </div>
-    )
+    );}
 }
+
+export default React.memo(ListEmployeeComponent);
