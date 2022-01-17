@@ -28,9 +28,7 @@ export default function CreateEmployeeComponent() {
       dob: startDate,
       gender: gender,
       mobile: mobile,
-      department:{
-          id:departmentId,
-      }
+      departmentId:departmentId,
     };
 
     EmployeeService.createEmployee(employee)

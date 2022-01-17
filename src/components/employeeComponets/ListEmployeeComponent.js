@@ -12,7 +12,7 @@ import EmployeeService from "../../services/EmployeeService";
         .then(response => {
             setEmployee((prevState) => response.data)
         });
-    },[]);
+    },[employee]);
     
     const createEmployee = () => {
         history(`/employee/create/`)
