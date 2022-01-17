@@ -31,7 +31,7 @@ public class EmployeeService {
     }
 
     public Object updateEmployee(Employee employee) {
-
+        System.out.println(employee);
         Employee employee1 = employeeRepo.findEmployeeByCode(employee.getCode());
         Optional<Employee> employee2 = employeeRepo.findById(employee.getId());
         HashMap<String,String> message = new HashMap<>();
