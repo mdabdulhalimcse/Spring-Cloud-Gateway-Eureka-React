@@ -14,11 +14,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false,length = 4)
     private String code;
 
     private String name;
-
 
     @Column(name = "date_of_birth")
     private LocalDate dob;

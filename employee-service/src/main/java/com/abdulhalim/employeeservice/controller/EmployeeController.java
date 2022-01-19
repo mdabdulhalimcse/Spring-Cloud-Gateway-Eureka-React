@@ -48,4 +48,11 @@ public class EmployeeController {
     public ResponseEntity<Object> deleteEmployee(@PathVariable("id") Long id){
         return new ResponseEntity<>(this.employeeService.deleteEmployeeById(id),HttpStatus.OK);
     }
+
+    @GetMapping(value = "/id/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id){
+        return new ResponseEntity(this.employeeService.getEmployeeById(id),HttpStatus.OK);
+    }
+
+
 }

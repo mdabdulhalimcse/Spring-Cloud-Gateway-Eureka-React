@@ -104,6 +104,10 @@ public class EmployeeService {
         }
     }
 
+    public Employee getEmployeeById(Long id){
+        return employeeRepo.findById(id).orElse(null);
+    }
+
     private EmployeeResponseDto convertEmployeeToDto(Employee employee){
         EmployeeResponseDto dto = new EmployeeResponseDto();
         BeanUtils.copyProperties(employee,dto);
