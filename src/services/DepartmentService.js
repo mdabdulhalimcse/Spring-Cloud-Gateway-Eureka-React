@@ -7,6 +7,9 @@ class DepartmentService {
     getDepartment(){
         return axios.get(DEPARMENT_API_BASE_URL);
     }
+    getDepartmentIsActive(){
+        return axios.get(DEPARMENT_API_BASE_URL+"getActiveDept");
+    }
 
     createDepartment(department){
         return axios.post(DEPARMENT_API_BASE_URL, department);

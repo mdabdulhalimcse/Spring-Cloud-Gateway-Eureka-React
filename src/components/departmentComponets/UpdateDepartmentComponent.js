@@ -17,7 +17,8 @@ export default function UpdateDepartmentComponent(){
             setDepartmentName(response.data.departmentName);
             setActiveStatus(response.data.active);
         });
-    },[idDepartment]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     const submitHandler = (e) => {
         e.preventDefault();

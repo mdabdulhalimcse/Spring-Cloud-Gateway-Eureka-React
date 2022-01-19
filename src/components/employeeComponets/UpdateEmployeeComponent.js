@@ -20,7 +20,7 @@ export default function UpdateEmployeeComponent() {
   const employeeId = params.id;
 
   useEffect(() => {
-    DepartmentService.getDepartment()
+    DepartmentService.getDepartmentIsActive()
     .then(response => setDepartment(response.data));
 },[]);
 
