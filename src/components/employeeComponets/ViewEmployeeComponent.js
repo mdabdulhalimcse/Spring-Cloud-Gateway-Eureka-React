@@ -9,7 +9,7 @@ function ViewEmployeeComponent (){
     const id = params.id;
 
     useEffect(() => {
-        EmployeeService.getEmployeeById(id).then( res => {
+        EmployeeService.getEmployeeDetailsById(id).then( res => {
             setEmployee(res.data);
         })
     },[]);
@@ -26,6 +26,9 @@ function ViewEmployeeComponent (){
                         </div>
                         <div className = "row">
                             <label>  Code: { employee.code }</label>
+                        </div>
+                        <div className = "row">
+                            <label>  Gender: { employee.gender }</label>
                         </div>
                         <div className = "row">
                             <label>  Date of Birth: { employee.dob }</label>

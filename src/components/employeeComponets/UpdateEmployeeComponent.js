@@ -22,7 +22,7 @@ export default function UpdateEmployeeComponent() {
   useEffect(() => {
     DepartmentService.getDepartment()
     .then(response => setDepartment(response.data));
-},[department]);
+},[]);
 
 useEffect(() => {
     EmployeeService.getEmployeeById(employeeId)
@@ -32,14 +32,18 @@ useEffect(() => {
         setGender(response.data.gender);
         setDateBirth(response.data.dob);
         setMobile(response.data.mobile);
-        setDepartmentId(response.data.department.id);
+        setDepartmentId(response.data.departmentId);
     });
 },[employeeId]);
 
   const submitHandler = (e) => {
     e.preventDefault();   
     var newDate= moment(dob).format('YYYY-MM-DD');
-
+    if(code.length !== 4){
+      alert("Code must be 4 character");
+      return false;
+    }
+    
     let employee = {
       id:employeeId,
       name: name,
@@ -49,10 +53,10 @@ useEffect(() => {
       mobile: mobile,
       departmentId:departmentId,
     };
-console.log(employee)
+
     EmployeeService.updateEmployee(employee)
       .then((data) => {
-        console.log(data);
+        alert(data.data.message);
         history(`/employee`);
       })
       .catch((error) => {
@@ -139,7 +143,7 @@ console.log(employee)
                 value={dob}
                 onChange={dateHandler}
               />
-            </div>
+            </div> <br/>
            
             <div>
             <label> Gender: </label>
@@ -148,7 +152,7 @@ console.log(employee)
                 <option value={option.value} key={index} >{option.label}</option>
               ))}
             </select>
-            </div>
+            </div> <br/>
 
             <div>
             <label> Department: </label>
@@ -157,7 +161,7 @@ console.log(employee)
                 <option value={dept.id} key={index} >{dept.departmentName}</option>
               ))}
             </select>
-            </div>
+            </div> <br/>
 
             <button className="btn btn-success" type="submit" value="Submit">
               Update

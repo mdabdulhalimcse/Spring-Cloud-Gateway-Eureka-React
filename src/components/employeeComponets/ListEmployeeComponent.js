@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
@@ -12,7 +11,7 @@ import EmployeeService from "../../services/EmployeeService";
         .then(response => {
             setEmployee((prevState) => response.data)
         });
-    },[employee]);
+    },[]);
     
     const createEmployee = () => {
         history(`/employee/create/`)
@@ -23,16 +22,17 @@ import EmployeeService from "../../services/EmployeeService";
     }
 
     const deleteEmployee = (id) => {
-        EmployeeService.deleteEmployee(id);
+        EmployeeService.deleteEmployee(id).then( res => {
+            console.log(res.data.message);
+            setEmployee(employee.filter(employee => employee.id !==  id));
+        });
     }
 
     const viewEmployee = (id) => {
         history(`/employee/view/${id}`);
     }
 
-if(employee.length <= 0  ){
-    return <div>Loading...</div>
-}else{
+
     return(
         
         <div className="container">
@@ -54,11 +54,11 @@ if(employee.length <= 0  ){
                            <th> Actions</th>
                        </tr>
                    </thead>
+                
                    <tbody >
-                       {
-                          employee.map(
+                       {   employee.map(
                                emp => 
-                               <tr key = {emp.id}>
+                               <tr key = {emp.id }>
                                     <td> { emp.name} </td>   
                                     <td> { emp.code} </td>   
                                     <td> {emp.gender}</td>
@@ -74,13 +74,13 @@ if(employee.length <= 0  ){
 
                                     </td>
                                </tr>
-                           )
+                           ) 
                        }
-                   </tbody>
+                   </tbody> 
                </table>
         </div>
    </div>
-    );}
+    );
 }
 
 export default React.memo(ListEmployeeComponent);

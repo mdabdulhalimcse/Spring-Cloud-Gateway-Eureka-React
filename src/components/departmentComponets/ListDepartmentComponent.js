@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import DepartmentService from '../../services/DepartmentService';
 
 
-export default function ListDepartmentComponent(){
+function ListDepartmentComponent(){
     const [department, setDepartment] = useState([]);
     const [activeStatus, setActiveStatus] = useState(true);
     const [name,setName] = useState({})
@@ -15,7 +15,7 @@ export default function ListDepartmentComponent(){
         .then(response => {
             setDepartment(response.data);
         });
-    },[department]);
+    },[]);
 
     const createDepartment = () => {
         history(`/department/create/`)
@@ -28,6 +28,7 @@ export default function ListDepartmentComponent(){
     const deleteDepartment = (id) => {
         DepartmentService.deleteDepartment(id).then( res => {
             console.log(res.data.message);
+            setDepartment(department.filter(department => department.id !==  id));
         });
     }
 
@@ -78,3 +79,5 @@ export default function ListDepartmentComponent(){
    </div>
     )
 }
+
+export default React.memo(ListDepartmentComponent);

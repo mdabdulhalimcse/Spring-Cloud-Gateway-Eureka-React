@@ -9,7 +9,7 @@ export default function CreateEmployeeComponent() {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [mobile, setMobile] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("FEMALE");
   const [startDate, setStartDate] = useState(new Date());
   const [departmentId,setDepartmentId] = useState('');
   const [ department,setDepartment] = useState([]);
@@ -22,6 +22,17 @@ export default function CreateEmployeeComponent() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if(code.length !== 4){
+      alert("Code must be 4 character");
+      return false;
+    }
+
+    if(departmentId === ""){
+      alert("Please select department");
+      return false;
+    }
+
     let employee = {
       name: name,
       code: code,
@@ -97,7 +108,7 @@ export default function CreateEmployeeComponent() {
                 placeholder="enter mobile number "
                 name="mobile"
                 required
-                type="text"
+                type="number"
                 className="form-control"
                 onChange={(e) => setMobile(e.target.value)}
                 value={mobile}
@@ -106,11 +117,11 @@ export default function CreateEmployeeComponent() {
 
             <div className="form-group">
               <label> Date of Birth: </label>
-              <DatePicker placeholderText="select your date of birth"
+              <DatePicker 
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
               />
-            </div>
+            </div><br/>
            
             <div>
             <label> Gender: </label>
@@ -119,11 +130,12 @@ export default function CreateEmployeeComponent() {
                 <option value={option.value} key={index} >{option.label}</option>
               ))}
             </select>
-            </div>
+            </div><br/>
 
             <div>
             <label> Department: </label>
             <select value={departmentId} onChange={(e) => setDepartmentId(e.target.value)}>
+            <option value="" >select department</option>
               {department.map((dept,index) => (
                 <option value={dept.id} key={index} >{dept.departmentName}</option>
               ))}

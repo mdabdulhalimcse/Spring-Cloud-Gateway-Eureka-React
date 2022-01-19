@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import CreateDepartmentComponent from './components/departmentComponets/CreateDepartmentComponent';
 import ListDepartmentComponent from './components/departmentComponets/ListDepartmentComponent';
@@ -33,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);
